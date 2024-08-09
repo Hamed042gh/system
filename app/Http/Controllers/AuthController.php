@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\AuthService;
+use App\Events\UserRegistered;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterRequest;
 
@@ -30,6 +31,8 @@ class AuthController extends Controller
     {
 
         $user = $this->authservice->register($request->validated());
+
+        event(new UserRegistered($user));
 
         return redirect()->route('registerForm')->with('status', 'Register successfully!!!');
     }
