@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Services\AuthService;
 use App\Events\UserRegistered;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 
 class AuthController extends Controller
@@ -34,6 +35,31 @@ class AuthController extends Controller
 
         event(new UserRegistered($user));
 
-        return redirect()->route('registerForm')->with('status', 'Register successfully!!!');
+        return redirect()
+            ->route('dashboard')
+            ->with('status', 'Register successfully!!!');
+    }
+
+
+    public function loginForm()
+    {
+
+        return view('login');
+    }
+
+
+    public function login(LoginRequest $request)
+    {
+
+        $credentials = $request->only('email', 'password');
+
+        if ($this->authservice->login($credentials)) {
+
+            return redirect()->route('dashboard')
+                ->with('status', 'you are login');
+        }
+        return redirect()->route('login')
+            ->with('error', 'invalid email or password')
+            ->withInput($request->only('email'));
     }
 }

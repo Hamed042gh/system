@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
     <style>
-        
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
@@ -23,6 +22,7 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             max-width: 400px;
             width: 100%;
+            text-align: center; /* Center align the text and form elements */
         }
 
         h2 {
@@ -56,6 +56,7 @@
             border-radius: 4px;
             cursor: pointer;
             font-size: 16px;
+            width: 100%; /* Ensure button takes the full width */
         }
 
         button:hover {
@@ -91,10 +92,10 @@
     <div class="container">
         <h2>Register</h2>
         @if (session('status'))
-        <div class="alert alert-success">
-            {{ session('status') }}
-        </div>
-    @endif
+            <div class="alert alert-success">
+                {{ session('status') }}
+            </div>
+        @endif
         @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>
