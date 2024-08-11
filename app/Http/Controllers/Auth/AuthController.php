@@ -36,7 +36,7 @@ class AuthController extends Controller
         event(new UserRegistered($user));
 
         return redirect()
-            ->route('dashboard')
+            ->route('posts.index')
             ->with('status', 'Register successfully!!!');
     }
 
@@ -55,7 +55,7 @@ class AuthController extends Controller
 
         if ($this->authservice->login($credentials)) {
 
-            return redirect()->route('dashboard')
+            return redirect()->route('posts.index')
                 ->with('status', 'you are login');
         }
         return redirect()->route('login')

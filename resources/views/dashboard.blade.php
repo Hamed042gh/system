@@ -1,4 +1,4 @@
 <h1>WELCOME</h1>
-@foreach ($users as $user )
-<h2>{{$user->name}}=>{{$user->email}}</h2><hr> 
+@foreach ($posts as $post )
+<a href="{{route('posts.show',$post->id)}}"><h2>{{$post->title}}</h2></a><hr> 
 @endforeach
