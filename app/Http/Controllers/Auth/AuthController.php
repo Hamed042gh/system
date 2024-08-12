@@ -7,6 +7,7 @@ use App\Services\AuthService;
 use App\Events\UserRegistered;
 use App\Http\Requests\LoginRequest;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\RegisterRequest;
 
 class AuthController extends Controller
@@ -61,5 +62,16 @@ class AuthController extends Controller
         return redirect()->route('login')
             ->with('error', 'invalid email or password')
             ->withInput($request->only('email'));
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect('/login');
     }
 }

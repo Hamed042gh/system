@@ -18,7 +18,7 @@ Route::get('/register', [AuthController::class, 'registerForm'])->name('register
 Route::post('/register', [AuthController::class, 'register'])->name('register');
 Route::get('/login', [AuthController::class, 'loginForm'])->name('loginForm');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
-Route::get('/dashboard', [PanelController::class, 'index'])->name('dashboard');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('auth/{provider}/redirect', [SocialAuthController::class, 'redirectToProvider'])->name('social.redirect');
 Route::get('auth/{provider}/callback', [SocialAuthController::class, 'handleProviderCallback'])->name('social.callback');
 

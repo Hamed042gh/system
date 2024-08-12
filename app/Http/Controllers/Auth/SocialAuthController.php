@@ -35,7 +35,7 @@ class SocialAuthController extends Controller
                 $user = $this->createNewUser($socialUser, $provider);
                 Auth::login($user);
             }
-            return redirect('/dashboard');
+            return redirect('/posts');
         } catch (\Exception $e) {
             Log::error('Authentication error with provider ' . $provider . ': ' . $e->getMessage());
             return redirect('/login')->withErrors('Unable To Authenticate with ' . $provider);

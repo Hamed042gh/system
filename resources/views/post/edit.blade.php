@@ -22,9 +22,10 @@
     <body>
         <div class="container mt-5">
             <h2>Create a New Post</h2>
-            <form action="{{ route('posts.update') }}" method="POST">
+            <form action="{{ route('posts.update', $post->id) }}" method="POST">
+                <input type="hidden" name="post_id" value="{{$post->user_id}}">
                 @csrf
-                <input type="hidden" name="post_id" value="{{ $post->id }}">
+                @method('PUT')
                 <div class="form-group">
                     <label for="title">Title</label>
                     <input type="text" class="form-control" id="title" name="title"
