@@ -78,8 +78,14 @@
             background-color: #dc3545;
         }
 
+        .post-actions .back {
+            background-color: #17a2b8; /* Cyan color for Back */
+            color: #ffffff;
+        }
+
         .post-actions .delete:hover,
-        .post-actions .edit:hover {
+        .post-actions .edit:hover,
+        .post-actions .back:hover {
             opacity: 0.9;
         }
     </style>
@@ -101,6 +107,9 @@
                 <button type="submit" class="delete" onclick="return confirm('Are you sure you want to delete this post?')">Delete</button>
             </form>
             @endcan
+
+            <!-- Back Button -->
+            <a href="{{ url()->previous() }}" class="back">Back</a>
         </div>
     </div>
 </body>

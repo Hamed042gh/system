@@ -17,7 +17,7 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::all();
-
+   
         return view('dashboard', compact('posts'));
     }
 
@@ -26,7 +26,7 @@ class PostController extends Controller
      */
     public function create()
     {
-     
+
         return view('post.create');
     }
 
@@ -65,9 +65,9 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-       
+
         $policy = Gate::authorize('update', $post);
-        
+
 
         $post->update($request->all());
 

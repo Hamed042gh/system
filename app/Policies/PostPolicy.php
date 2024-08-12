@@ -13,6 +13,7 @@ class PostPolicy
      */
     public function viewAny(User $user)
     {
+        // Implement as needed
     }
 
     /**
@@ -20,6 +21,7 @@ class PostPolicy
      */
     public function view(User $user, Post $post)
     {
+        // Implement as needed
     }
 
     /**
@@ -35,9 +37,7 @@ class PostPolicy
      */
     public function update(User $user, Post $post)
     {
-
-
-        return $user->id === $post->user_id ? Response::allow() : Response::deny('You do not own this post.');
+        return $this->authorizeForAction($user, $post);
     }
 
     /**
@@ -45,7 +45,7 @@ class PostPolicy
      */
     public function delete(User $user, Post $post)
     {
-        return $user->id === $post->user_id ? Response::allow() : Response::deny('You do not own this post.');
+        return $this->authorizeForAction($user, $post);
     }
 
     /**
@@ -53,7 +53,7 @@ class PostPolicy
      */
     public function restore(User $user, Post $post)
     {
-        return $user->id === $post->user_id ? Response::allow() : Response::deny('You do not own this post.');
+        return $this->authorizeForAction($user, $post);
     }
 
     /**
@@ -61,6 +61,20 @@ class PostPolicy
      */
     public function forceDelete(User $user, Post $post)
     {
-        return $user->id === $post->user_id ? Response::allow() : Response::deny('You do not own this post.');
+        return $this->authorizeForAction($user, $post);
+    }
+
+    /**
+     * Common authorization check for actions.
+     */
+    private function authorizeForAction(User $user, Post $post)
+    {
+        if ($user->role === 'admin') {
+            return Response::allow();
+        }
+
+        return $user->id === $post->user_id
+            ? Response::allow()
+            : Response::deny('You do not own this post.');
     }
 }
