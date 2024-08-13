@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Middleware\AuthMiddleware;
+use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PanelController;
 use App\Http\Controllers\ProfileController;
@@ -18,7 +19,7 @@ Route::get('/', function () {
 Route::get('/register', [AuthController::class, 'registerForm'])->name('registerForm');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
 Route::get('/login', [AuthController::class, 'loginForm'])->name('loginForm');
-Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/login', [AuthController::class, 'login'])->middleware('throttle')->name('login');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('auth/{provider}/redirect', [SocialAuthController::class, 'redirectToProvider'])->name('social.redirect');
 Route::get('auth/{provider}/callback', [SocialAuthController::class, 'handleProviderCallback'])->name('social.callback');
@@ -38,3 +39,9 @@ Route::resource('profile', ProfileController::class)
 
 Route::resource('profile', ProfileController::class)
     ->only(['index', 'show']);
+
+
+    Route::get('/test-session', function () {
+        Session::put('test_key', 'test_value');
+        return Session::get('test_key');
+    });
