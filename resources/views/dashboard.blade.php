@@ -87,7 +87,7 @@
         <div class="header-actions">
             @if (Auth::check())
                 <a href="{{ route('profile.show', Auth::user()->id) }}" class="btn btn-profile">
-                    View Profile
+                    Your Profile
                 </a>
                 <a href="{{ route('logout') }}"
                    onclick="event.preventDefault();
@@ -95,11 +95,14 @@
                    class="logout-link">
                     Log Out
                 </a>
-            @endif
-
-            <!-- دکمه ساخت پست جدید -->
-            @if (Auth::check())
                 <a href="{{ route('posts.create') }}" class="btn btn-info btn-create">Create New Post</a>
+            @else
+                <a href="{{ route('login') }}" class="btn btn-primary">
+                    Login
+                </a>
+                <a href="{{ route('register') }}" class="btn btn-secondary">
+                    Register
+                </a>
             @endif
         </div>
     </div>
@@ -115,9 +118,11 @@
                     <a href="{{ route('posts.show', $post->id) }}">
                         <h2>{{ $post->title }}</h2>
                     </a>
-                    <a href="{{ route('profile.show', $post->user_id) }}" class="btn-profile">
-                        View Profile
-                    </a>
+                    @if (Auth::check())
+                        <a href="{{ route('profile.show', $post->user_id) }}" class="btn-profile">
+                            View Profile
+                        </a>
+                    @endif
                     <hr>
                 </div>
             @endforeach
