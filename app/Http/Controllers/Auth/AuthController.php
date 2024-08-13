@@ -36,6 +36,8 @@ class AuthController extends Controller
 
         event(new UserRegistered($user));
 
+        Auth::login($user);
+
         return redirect()
             ->route('posts.index')
             ->with('status', 'Register successfully!!!');
@@ -74,4 +76,6 @@ class AuthController extends Controller
 
         return redirect('/posts');
     }
+
+
 }

@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -25,35 +24,31 @@
         }
 
         .title {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
             color: #FFD700;
             margin: 0;
         }
 
-        .user-info {
+        .header-actions {
             display: flex;
             align-items: center;
+            gap: 15px; /* Space between buttons */
         }
 
-        .user-type {
-            font-weight: bold;
-            color: #18ea01;
-            margin-right: 20px;
-        }
-
-        .login-link {
-            color: #007bff; /* Blue color for Log In */
-            text-decoration: none;
-            font-weight: bold;
+        .btn-create {
             margin-right: 10px;
         }
 
-        .register-link {
-            color: #28a745; /* Green color for Register */
+        .btn-profile {
+            display: inline-block;
+            padding: 5px 10px;
+            color: #fff;
+            background-color: #007bff;
+            border-radius: 4px;
             text-decoration: none;
-            font-weight: bold;
+        }
+
+        .btn-profile:hover {
+            background-color: #0056b3;
         }
 
         .logout-link {
@@ -87,27 +82,26 @@
 
 <body>
     <div class="header">
-        <div class="user-info">
-            <!-- Display User Type -->
-            @if (Auth::check())
-                <p class="user-type">User Type: {{ Auth::user()->role === 'admin' ? 'Admin' : 'Normal' }}</p>
+        <h1 class="title">List of All Posts</h1>
 
-                <!-- Log Out Link -->
+        <div class="header-actions">
+            @if (Auth::check())
+                <a href="{{ route('profile.show', Auth::user()->id) }}" class="btn btn-profile">
+                    View Profile
+                </a>
                 <a href="{{ route('logout') }}"
                    onclick="event.preventDefault();
                             document.getElementById('logout-form').submit();"
                    class="logout-link">
                     Log Out
                 </a>
-            @else
-                <!-- Log In and Register Links -->
-                <a href="{{ route('login') }}" class="login-link">Log In</a>
-                <a href="{{ route('register') }}" class="register-link">Register</a>
+            @endif
+
+            <!-- دکمه ساخت پست جدید -->
+            @if (Auth::check())
+                <a href="{{ route('posts.create') }}" class="btn btn-info btn-create">Create New Post</a>
             @endif
         </div>
-
-        <!-- Centered Title -->
-        <h1 class="title">List of All Posts</h1>
     </div>
 
     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -115,13 +109,17 @@
     </form>
 
     <div class="posts">
-        <a class="btn btn-info" href="{{ route('posts.create') }}">Create New Post</a>
         @if ($posts->isNotEmpty())
             @foreach ($posts as $post)
-                <a href="{{ route('posts.show', $post->id) }}">
-                    <h2>{{ $post->title }}</h2>
-                </a>
-                <hr>
+                <div class="post-item">
+                    <a href="{{ route('posts.show', $post->id) }}">
+                        <h2>{{ $post->title }}</h2>
+                    </a>
+                    <a href="{{ route('profile.show', $post->user_id) }}" class="btn-profile">
+                        View Profile
+                    </a>
+                    <hr>
+                </div>
             @endforeach
         @else
             <h3>No post exists...</h3>

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\AuthMiddleware;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PanelController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\SocialAuthController;
@@ -29,4 +30,11 @@ Route::resource('posts', PostController::class)
 
 
 Route::resource('posts', PostController::class)
+    ->only(['index', 'show']);
+Route::resource('profile', ProfileController::class)
+    ->middleware('auth')
+    ->except(['index', 'show']);
+
+
+Route::resource('profile', ProfileController::class)
     ->only(['index', 'show']);
