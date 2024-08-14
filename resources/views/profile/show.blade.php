@@ -82,7 +82,7 @@
         <div class="header-actions">
             <!-- دکمه تغییر رمز عبور (فقط برای پروفایل خود کاربر) -->
             @if (Auth::check() && Auth::user()->id == $user->id)
-                <a href="" class="btn btn-warning">
+                <a href="{{route('changePasswordForm')}}" class="btn btn-warning">
                     <i class="fa fa-key"></i> Change Password
                 </a>
                 <!-- دکمه ایجاد پست جدید -->
