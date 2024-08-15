@@ -17,9 +17,8 @@
                         <h2 class="mb-0">Change Password</h2>
                     </div>
                     <div class="card-body">
-                        <form action="" method="POST">
+                        <form action="{{route('changePassword')}}" method="POST">
                             @csrf
-                            @method('PUT')
 
                             <div class="form-group">
                                 <label for="current_password">Current Password</label>

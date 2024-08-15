@@ -24,6 +24,8 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('auth/{provider}/redirect', [SocialAuthController::class, 'redirectToProvider'])->name('social.redirect');
 Route::get('auth/{provider}/callback', [SocialAuthController::class, 'handleProviderCallback'])->name('social.callback');
 Route::get('/change-password',[PasswordController::class,'changePasswordForm'])->name('changePasswordForm');
+Route::post('/change-password',[PasswordController::class,'changePassword'])->name('changePassword');
+
 
 Route::resource('posts', PostController::class)
     ->middleware('auth')
