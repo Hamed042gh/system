@@ -26,13 +26,14 @@ class PasswordController extends Controller
             ->with('status', 'Password has been successfully changed!');
     }
 
-    protected function validatePasswordChangeRequest(Request $request)
+        protected function validatePasswordChangeRequest(Request $request)
     {
         $request->validate([
             'current_password' => 'required|current_password',
-            'new_password' => 'required|string|min:8|confirmed',
-        ]);
-    }
+            'new_password' => 'required|string|min:8|confirmed|different:current_password',
+        ], [
+            'new_password.different' => 'The new password must not be the same as the current password'
+        ]);    }
 
     protected function updatePassword(string $newPassword)
     {

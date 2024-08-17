@@ -125,6 +125,20 @@
             border-radius: 6px;
             margin-bottom: 20px;
         }
+
+        .forgot-password {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .forgot-password a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -163,13 +177,18 @@
         </form>
 
         <div class="social-buttons">
-            <a href="{{route('social.redirect', ['provider' => 'google'])}}" class="social-button">
+            <a href="{{ route('social.redirect', ['provider' => 'google']) }}" class="social-button">
                 <img src="https://www.gstatic.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="Google Logo">
             </a>
-            <a href="{{route('social.redirect', ['provider' =>'github'])}}" class="social-button">
+            <a href="{{ route('social.redirect', ['provider' => 'github']) }}" class="social-button">
                 <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub Logo">
             </a>
+        </div>
+
+        <div class="forgot-password">
+            <a href="{{route('forget-password')}}">Forgot your password?</a>
         </div>
     </div>
 </body>
 </html>
+

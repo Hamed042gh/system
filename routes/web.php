@@ -11,6 +11,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\SocialAuthController;
 use App\Http\Controllers\Auth\PasswordController;
+use App\Http\Controllers\Auth\ForgotController;
 Route::get('/', function () {
     return view('welcome');
 });
@@ -23,9 +24,11 @@ Route::post('/login', [AuthController::class, 'login'])->middleware('throttle')-
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('auth/{provider}/redirect', [SocialAuthController::class, 'redirectToProvider'])->name('social.redirect');
 Route::get('auth/{provider}/callback', [SocialAuthController::class, 'handleProviderCallback'])->name('social.callback');
-Route::get('/change-password',[PasswordController::class,'changePasswordForm'])->name('changePasswordForm');
-Route::post('/change-password',[PasswordController::class,'changePassword'])->name('changePassword');
 
+
+Route::get('/change-password',[ForgotController::class,'forgotpasswordForm'])->name('forget-password');
+Route::post('/change-password',[ForgotController::class,'checkingEmail'])->name('checkemail');
+Route::post('password/email', [PasswordController::class, 'sendResetLinkEmail']);
 
 Route::resource('posts', PostController::class)
     ->middleware('auth')
